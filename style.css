@@ -1,0 +1,104 @@
+body {
+    background-color: #fcfcfc;
+    font-family: "Segoe UI", sans-serif;
+    max-width: 360px;
+    margin: 20px auto;
+    padding: 0.6rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.container {
+    max-width: 360px;
+    margin: auto;
+    background-color: #faf8ef;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+}
+
+img {
+    width: auto;
+    height: auto;
+    max-width: 200px;
+    max-height: 200px;
+    display: block;
+    margin: 0 auto 1rem;
+}
+
+h1 {
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1.2rem;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 0.8rem;
+    display: block;
+    font-size: 0.9rem;
+}
+
+textarea, input, select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    font-size: 0.6rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    margin-top: 1.2rem;
+    padding: 0.6rem;
+    background-color: rgb(157, 200, 136);
+    color: white;
+    border: none;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(202, 219, 170);
+}
+
+.result-wrapper {
+    max-width: 360px;
+    margin: 1.5rem auto;
+    background-color: #fbf5e6;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.result-wrapper h2 {
+    margin-top: 0;
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+#result.styled-result {
+    font-size: 0.7rem;
+    line-height: 1.5;
+    color: #222;
+    white-space: pre-line;
+}
+
+.heading {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 0.8rem;
+    color: #b00040;
+}
+
+.detail {
+    font-size: 0.85rem;
+    color: #444;
+    margin-bottom: 0.6rem;
+}
+
+
+

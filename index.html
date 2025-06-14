@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Helper</title>
+    <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+    <div class="container">
+        <h1>🧠 당신의 공부를 도와드립니다! </h1>
+
+        <div>
+            <img src = "./image/리락쿠마.png">
+        </div>
+        <label for="question">질문</label>
+        <textarea id="question" placeholder="예: 구조체가 뭔가요?" rows="3"></textarea>
+
+        <label for="difficulty">어려운 점</label>
+        <input type="text" id="difficulty" placeholder="예: 중첩 구조체가 헷갈려요" />
+
+        <label for="understandingLevel">이해도</label>
+        <select id="understandingLevel">
+        <option value="1">1 - 거의 몰라요</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5 - 거의 다 알아요</option>
+        </select>
+
+        <button onclick="sendToAPI()">질문 보내기</button>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div class="result-wrapper">
+        <h2>📘 AI의 답변</h2>
+        <div id="result" class="styled-result">
+        결과가 여기에 표시됩니다.
+        </div>
+    </div>
+
+    <script>
+        function formatResultText(text) {
+        const lines = text.split("\n");
+        return lines.map(line => {
+            if (/^\d+\./.test(line.trim())) {
+            return `<div class="heading">${line}</div>`;
+            } else {
+            return `<div class="detail">${line}</div>`;
+            }
+        }).join("");
+        }
+
+        async function sendToAPI() {
+        const question = document.getElementById("question").value;
+        const difficulty = document.getElementById("difficulty").value;
+        const understandingLevel = document.getElementById("understandingLevel").value;
+        const resultBox = document.getElementById("result");
+
+        if (!question || !difficulty || !understandingLevel) {
+            resultBox.innerHTML = "<div class='heading'>⚠️ 모든 입력값을 채워주세요.</div>";
+            return;
+        }
+
+        resultBox.innerHTML = "⏳ 응답을 기다리는 중...";
+
+        try {
+            const res = await fetch("https://assign2-one.vercel.app/api/duksungAI", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question, difficulty, understandingLevel })
+            });
+
+            const data = await res.json();
+
+            if (data.answer) {
+            resultBox.innerHTML = formatResultText(data.answer);
+            } else {
+            resultBox.innerHTML = `<div class="heading">⚠️ 오류</div><div class="detail">${data.error || "응답이 없습니다."}</div>`;
+            }
+        } catch (err) {
+            resultBox.innerHTML = `<div class="heading">❌ 요청 실패</div><div class="detail">${err.message}</div>`;
+        }
+        }
+    </script>
+</body>
+</html>
+
+
