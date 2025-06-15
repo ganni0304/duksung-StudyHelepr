@@ -41,33 +41,36 @@
     </div>
 
     <script>
-    function formatResultText(text) {
+function formatResultText(text) {
     const lines = text.split("\n");
-    return lines.map(line => {
+
+    return lines.map((line, idx) => {
         const trimmed = line.trim();
 
-        // **1. 제목** 형태 → heading 처리
-        if (/^\*\*\d+\..*\*\*$/.test(trimmed)) {
+        // "**1. 제목**" 형태 감지
+        if (/^\*\*\d+\..*?\*\*$/.test(trimmed)) {
         const cleanLine = trimmed.replace(/^\*\*(\d+\..*?)\*\*$/, '$1');
         return `<div class="heading">${cleanLine}</div>`;
         }
 
-        // Markdown 헤딩 #, ##, ### → heading 처리
+        // Markdown 헤딩 (#, ##, ###) 처리
         if (/^#{1,6}\s+.+/.test(trimmed)) {
         const cleanLine = trimmed.replace(/^#{1,6}\s+/, '');
         return `<div class="heading">${cleanLine}</div>`;
         }
 
-        // "4. 제목" 같이 숫자.문장 형태인데, **다음 줄이 공백이면 heading 처리**
-        if (/^\d+\..+/.test(trimmed)) {
-        const nextLine = lines[lines.indexOf(line) + 1]?.trim();
-        if (!nextLine) return `<div class="heading">${line}</div>`;
+        // 숫자. 제목 ← 이때 **다음 줄이 공백이면 heading으로 간주**
+        if (/^\d+\..+$/.test(trimmed)) {
+        const nextLine = lines[idx + 1]?.trim();
+        // 다음 줄이 비어 있거나 undefined일 경우에만 heading 처리
+        if (!nextLine) return `<div class="heading">${trimmed}</div>`;
         }
 
-        // 일반 텍스트는 detail 처리
+        // 나머지는 일반 설명
         return `<div class="detail">${line}</div>`;
     }).join("");
 }
+
 
 
 
