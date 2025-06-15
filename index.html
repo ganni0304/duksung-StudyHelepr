@@ -46,26 +46,28 @@
     return lines.map(line => {
         const trimmed = line.trim();
 
-        // "**1. 제목**" → 코드 블록 처리
+        // "**1. 제목**" 형식 → heading 박스 스타일
         if (/^\*\*\d+\..*\*\*$/.test(trimmed)) {
-        const cleanLine = trimmed.replace(/^\*\*(\d+\..*?)\*\*$/, '## $1');
-        return `<pre><code>${cleanLine}</code></pre>`;
+        const cleanLine = trimmed.replace(/^\*\*(\d+\..*?)\*\*$/, '$1');
+        return `<div class="heading">${cleanLine}</div>`;
         }
 
-        // "### 제목" → 코드 블록 처리
-        if (/^#{2,6}\s*\d+\..*/.test(trimmed)) {
-        return `<pre><code>${trimmed}</code></pre>`;
-        }
-
-        // 일반 "1. 제목" → heading 스타일
+        // "1. 제목" 형식 → heading 박스 스타일
         if (/^\d+\./.test(trimmed)) {
         return `<div class="heading">${line}</div>`;
         }
 
-        // 나머지 줄 → detail 스타일
+        // Markdown 헤딩 ##, ### 등도 박스 스타일로 처리
+        if (/^#{1,6}\s+.+/.test(trimmed)) {
+        const cleanLine = trimmed.replace(/^#{1,6}\s+/, '');
+        return `<div class="heading">${cleanLine}</div>`;
+        }
+
+        // 일반 줄 → 상세 설명
         return `<div class="detail">${line}</div>`;
     }).join("");
 }
+
 
 
         async function sendToAPI() {
