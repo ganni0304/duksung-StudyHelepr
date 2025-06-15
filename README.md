@@ -7,7 +7,7 @@
 
 ## 서비스 구성 요소(1) - Gemini API
 * Study Helper가 답변하는 설명과 문제는 구글의 LMM 모델인 Gemini API를 활용해 생성한다.
-* 활용 모델 : Gemini-2.0-flas
+* 활용 모델 : Gemini-2.0-flash
 * 시스템 프롬프트 주안점
    - 문제에 대한 설명을 해주는 인공지능에게 모든 학문에 박식한 박사급 AI 교육 전문가라고 역할을 부여했다.
    - 말투는 따뜻하고 친절하게 해주라고 제시했다.
@@ -18,7 +18,9 @@
 * Study Helper 서비스 페이지는 HTML, CSS, JavaScript를 사용하여 간단하게 구성하였다.
 * CSS 스타일 시트는 style.css 파일로 분리하였다.
 * 리락쿠마 병아리가 선생님이 된 것처럼 이미지를 OpenAI Sora를 이용하여 생성하였다.
-  ![리락쿠마](https://github.com/user-attachments/assets/364719c6-2870-40bf-a96a-c5df5f4a7952)
+
+  
+  <img src = "./image/리락쿠마.png" width = 150>
 
 ## 서비스 구성 요소(3) - 백엔드
 * 구글 Gemini API 호출을 위한 API 키가 노출되지 않도록, 프론트엔드의 요청을 받아서 Gemini API를 호출해주는 간단한 API 백엔드를 구성하였다.
