@@ -41,32 +41,33 @@
     </div>
 
     <script>
-        function formatResultText(text) {
+    function formatResultText(text) {
     const lines = text.split("\n");
     return lines.map(line => {
         const trimmed = line.trim();
 
-        // "**1. 제목**" 형식 → heading 박스 스타일
+        // **1. 제목**
         if (/^\*\*\d+\..*\*\*$/.test(trimmed)) {
         const cleanLine = trimmed.replace(/^\*\*(\d+\..*?)\*\*$/, '$1');
         return `<div class="heading">${cleanLine}</div>`;
         }
 
-        // "1. 제목" 형식 → heading 박스 스타일
+        // 1. 제목
         if (/^\d+\./.test(trimmed)) {
         return `<div class="heading">${line}</div>`;
         }
 
-        // Markdown 헤딩 ##, ### 등도 박스 스타일로 처리
+        // ### 1. 제목 / ## 제목 / #### 이런 것들도 heading 처리
         if (/^#{1,6}\s+.+/.test(trimmed)) {
         const cleanLine = trimmed.replace(/^#{1,6}\s+/, '');
         return `<div class="heading">${cleanLine}</div>`;
         }
 
-        // 일반 줄 → 상세 설명
+        // 일반 텍스트
         return `<div class="detail">${line}</div>`;
     }).join("");
-}
+    }
+
 
 
 
