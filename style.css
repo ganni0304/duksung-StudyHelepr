@@ -1,15 +1,15 @@
 body {
     background-color: #fcfcfc;
     font-family: "Segoe UI", sans-serif;
-    max-width: 360px;
+    max-width: 500px;
     margin: 20px auto;
-    padding: 0.6rem;
-    border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .container {
-    max-width: 360px;
+    max-width: 500px;
     margin: auto;
     background-color: #faf8ef;
     padding: 1.5rem;
@@ -20,14 +20,14 @@ body {
 img {
     width: auto;
     height: auto;
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 250px;
+    max-height: 250px;
     display: block;
     margin: 0 auto 1rem;
 }
 
 h1 {
-    font-size: 1rem;
+    font-size: 1.8rem;
     text-align: center;
     margin-bottom: 1.2rem;
 }
@@ -36,14 +36,14 @@ label {
     font-weight: bold;
     margin-top: 0.8rem;
     display: block;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
 }
 
 textarea, input, select {
     width: 100%;
     padding: 0.5rem;
     margin-top: 0.25rem;
-    font-size: 0.6rem;
+    font-size: 1em;
     border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -56,7 +56,7 @@ button {
     background-color: rgb(157, 200, 136);
     color: white;
     border: none;
-    font-size: 0.8rem;
+    font-size: 1.1rem;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -66,7 +66,7 @@ button:hover {
 }
 
 .result-wrapper {
-    max-width: 360px;
+    max-width: 500px;
     margin: 1.5rem auto;
     background-color: #fbf5e6;
     padding: 1.5rem;
@@ -75,13 +75,13 @@ button:hover {
 
 .result-wrapper h2 {
     margin-top: 0;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     color: #333;
     margin-bottom: 1rem;
 }
 
 #result.styled-result {
-    font-size: 0.7rem;
+    font-size: 1rem;
     line-height: 1.5;
     color: #222;
     white-space: pre-line;
