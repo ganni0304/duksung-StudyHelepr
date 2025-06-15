@@ -46,27 +46,29 @@
     return lines.map(line => {
         const trimmed = line.trim();
 
-        // **1. 제목**
+        // **1. 제목** 형태 → heading 처리
         if (/^\*\*\d+\..*\*\*$/.test(trimmed)) {
         const cleanLine = trimmed.replace(/^\*\*(\d+\..*?)\*\*$/, '$1');
         return `<div class="heading">${cleanLine}</div>`;
         }
 
-        // 1. 제목
-        if (/^\d+\./.test(trimmed)) {
-        return `<div class="heading">${line}</div>`;
-        }
-
-        // ### 1. 제목 / ## 제목 / #### 이런 것들도 heading 처리
+        // Markdown 헤딩 #, ##, ### → heading 처리
         if (/^#{1,6}\s+.+/.test(trimmed)) {
         const cleanLine = trimmed.replace(/^#{1,6}\s+/, '');
         return `<div class="heading">${cleanLine}</div>`;
         }
 
-        // 일반 텍스트
+        // "4. 제목" 같이 숫자.문장 형태인데, **다음 줄이 공백이면 heading 처리**
+        if (/^\d+\..+/.test(trimmed)) {
+        const nextLine = lines[lines.indexOf(line) + 1]?.trim();
+        if (!nextLine) return `<div class="heading">${line}</div>`;
+        }
+
+        // 일반 텍스트는 detail 처리
         return `<div class="detail">${line}</div>`;
     }).join("");
-    }
+}
+
 
 
 
