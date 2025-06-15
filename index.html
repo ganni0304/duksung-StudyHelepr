@@ -8,11 +8,12 @@
     </head>
     <body>
     <div class="container">
-        <h1>🧠 당신의 공부를 도와드립니다! </h1>
+        <h1>🧠 당신의 공부를 도와드립니다!</h1>
 
         <div>
-            <img src = "./image/리락쿠마.png">
+        <img src="./image/리락쿠마.png" alt="귀여운 이미지" />
         </div>
+
         <label for="question">질문</label>
         <textarea id="question" placeholder="예: 구조체가 뭔가요?" rows="3"></textarea>
 
@@ -43,11 +44,21 @@
         function formatResultText(text) {
         const lines = text.split("\n");
         return lines.map(line => {
-            if (/^\d+\./.test(line.trim())) {
-            return `<div class="heading">${line}</div>`;
-            } else {
-            return `<div class="detail">${line}</div>`;
+            const trimmed = line.trim();
+
+            // "**1. 제목**" 형식 감지
+            if (/^\*\*\d+\..*\*\*$/.test(trimmed)) {
+            const cleanLine = trimmed.replace(/^\*\*(\d+\..*?)\*\*$/, '$1');
+            return `<div class="heading">${cleanLine}</div>`;
             }
+
+            // "1. 제목" 형식 감지
+            if (/^\d+\./.test(trimmed)) {
+            return `<div class="heading">${line}</div>`;
+            }
+
+            // 일반 줄
+            return `<div class="detail">${line}</div>`;
         }).join("");
         }
 
@@ -85,5 +96,6 @@
     </script>
 </body>
 </html>
+
 
 

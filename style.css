@@ -40,10 +40,11 @@ label {
 }
 
 textarea, input, select {
+    font-family: "Segoe UI", sans-serif;
     width: 100%;
     padding: 0.5rem;
     margin-top: 0.25rem;
-    font-size: 1em;
+    font-size: 0.9em;
     border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -88,14 +89,20 @@ button:hover {
 }
 
 .heading {
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: bold;
-    margin-top: 0.8rem;
-    color: #b00040;
+    margin-top: 1.2rem;
+    margin-bottom: 0.4rem;
+    padding: 0.3rem 0.5rem;
+    background-color: #f0eada;
+    border-left: 4px solid #c4b48f;
+    color: #333;
+    border-radius: 4px;
 }
 
+
 .detail {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     color: #444;
     margin-bottom: 0.6rem;
 }
