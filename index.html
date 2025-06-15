@@ -47,33 +47,34 @@
     return lines.map((line, idx) => {
         const trimmed = line.trim();
 
-        // "**1. 제목**" 형태 → heading 처리
-        if (/^\*\*\d+\..*?\*\*$/.test(trimmed)) {
-        const cleanLine = trimmed.replace(/^\*\*(\d+\..*?)\*\*$/, '$1');
+        // **문제 1**, **1. 제목** → heading 처리
+        if (/^\*\*.*\*\*$/.test(trimmed)) {
+        const cleanLine = trimmed.replace(/^\*\*(.*?)\*\*$/, '$1');
         return `<div class="heading">${cleanLine}</div>`;
         }
 
-        // Markdown 헤딩 처리
+        // Markdown # 헤딩 처리
         if (/^#{1,6}\s+.+/.test(trimmed)) {
         const cleanLine = trimmed.replace(/^#{1,6}\s+/, '');
         return `<div class="heading">${cleanLine}</div>`;
         }
 
-        // 숫자.로 시작 + 뒤에 **텍스트:** 형식 → 그냥 detail로 처리
-        if (/^\d+\.\s+\*\*.+:\*\*/.test(trimmed)) {
-        return `<div class="detail">${line}</div>`;
+        // 숫자. + 짧은 한 단어 같은 경우 → detail 처리
+        if (/^\d+\.\s+\S+$/.test(trimmed)) {
+        return `<div class="detail">${trimmed}</div>`;
         }
 
-        // 숫자.로 시작 + 다음 줄이 비었으면 heading 처리
+        // 숫자. + 다음 줄이 비어 있으면 heading (진짜 큰 제목)
         if (/^\d+\..+$/.test(trimmed)) {
         const nextLine = lines[idx + 1]?.trim();
         if (!nextLine) return `<div class="heading">${trimmed}</div>`;
         }
 
-        // 기본: detail 처리
+        // 일반 줄 → detail 처리
         return `<div class="detail">${line}</div>`;
     }).join("");
 }
+
 
 
 
