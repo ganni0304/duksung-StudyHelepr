@@ -100,6 +100,16 @@ button:hover {
     border-radius: 4px;
 }
 
+.subheading {
+    font-size: 1.01rem;
+    background-color: #f8f4ea;
+    border-left: 3px solid #d3c6a8;
+    padding: 0.3rem 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+    border-radius: 4px;
+    color: #333;
+}
 
 .detail {
     font-size: 0.95rem;
