@@ -42,37 +42,50 @@
 
     <script>
     function formatResultText(text) {
-    const lines = text.split("\n");
+        const lines = text.split("\n");
 
-    return lines.map((line, idx) => {
-        const trimmed = line.trim();
+        return lines.map((line, idx) => {
+            const trimmed = line.trim();
 
-        // 마크다운 헤딩 (#, ##, ###)
-        if (/^#{1,6}\s+.+/.test(trimmed)) {
-        const clean = trimmed.replace(/^#{1,6}\s+/, '');
-        return `<div class="heading">${clean}</div>`;
-        }
-
-        // **굵은 제목** 형식
-        if (/^\*\*.*\*\*$/.test(trimmed)) {
-        const clean = trimmed.replace(/^\*\*(.*?)\*\*$/, '$1');
-        return `<div class="heading">${clean}</div>`;
-        }
-
+            // **문제 1**, **1. 제목** → heading 처리
+            if (/^\*\*.*\*\*$/.test(trimmed)) {
+            const cleanLine = trimmed.replace(/^\*\*(.*?)\*\*$/, '$1');
+            return `<div class="heading">${cleanLine}</div>`;
+            }
         // 숫자.숫자 서브 타이틀 ex) 2.1 유사 문제
-        if (/^\d+\.\d+\s+.+/.test(trimmed)) {
-        return `<div class="subheading">${trimmed}</div>`;
-        }
+            if (/^\d+\.\d+\s+.+/.test(trimmed)) {
+            return `<div class="subheading">${trimmed}</div>`;
+            }
+            // Markdown # 헤딩 처리
+            if (/^#{1,6}\s+.+/.test(trimmed)) {
+            const cleanLine = trimmed.replace(/^#{1,6}\s+/, '');
+            return `<div class="heading">${cleanLine}</div>`;
+            }
 
-        // 숫자. 메인 타이틀 (ex. 3. 제목), 다음 줄이 비어있으면 heading
-        if (/^\d+\..+/.test(trimmed)) {
-        const nextLine = lines[idx + 1]?.trim();
-        if (!nextLine) return `<div class="heading">${trimmed}</div>`;
-        }
+            // 숫자. + 짧은 한 단어 같은 경우 → detail 처리
+            if (/^\d+\.\s+\S+$/.test(trimmed)) {
+            return `<div class="detail">${trimmed}</div>`;
+            }
 
-        // 일반 텍스트
-        return `<div class="detail">${line}</div>`;
-    }).join("");
+            // 숫자. + 다음 줄이 비어 있으면 heading (진짜 큰 제목)
+            if (/^\d+\..+$/.test(trimmed)) {
+            const nextLine = lines[idx + 1]?.trim();
+            if (!nextLine) return `<div class="heading">${trimmed}</div>`;
+            }
+
+            // 일반 줄 → detail 처리
+            return `<div class="detail">${line}</div>`;
+        }).join("");
+    }
+
+    if (req.method === "OPTIONS") {
+        return res.status(200).end();
+    }
+
+    const { question, difficulty, understandingLevel } = req.body;
+
+    if(!question || !difficulty || !understandingLevel){
+        return res.status(400).json({error:"question과 difficulty와 understandingLevel이 필요합니다."});
     }
 
 
