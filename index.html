@@ -42,25 +42,31 @@
 
     <script>
         function formatResultText(text) {
-        const lines = text.split("\n");
-        return lines.map(line => {
-            const trimmed = line.trim();
+    const lines = text.split("\n");
+    return lines.map(line => {
+        const trimmed = line.trim();
 
-            // "**1. 제목**" 형식 감지
-            if (/^\*\*\d+\..*\*\*$/.test(trimmed)) {
-            const cleanLine = trimmed.replace(/^\*\*(\d+\..*?)\*\*$/, '$1');
-            return `<div class="heading">${cleanLine}</div>`;
-            }
-
-            // "1. 제목" 형식 감지
-            if (/^\d+\./.test(trimmed)) {
-            return `<div class="heading">${line}</div>`;
-            }
-
-            // 일반 줄
-            return `<div class="detail">${line}</div>`;
-        }).join("");
+        // "**1. 제목**" → 코드 블록 처리
+        if (/^\*\*\d+\..*\*\*$/.test(trimmed)) {
+        const cleanLine = trimmed.replace(/^\*\*(\d+\..*?)\*\*$/, '## $1');
+        return `<pre><code>${cleanLine}</code></pre>`;
         }
+
+        // "### 제목" → 코드 블록 처리
+        if (/^#{2,6}\s*\d+\..*/.test(trimmed)) {
+        return `<pre><code>${trimmed}</code></pre>`;
+        }
+
+        // 일반 "1. 제목" → heading 스타일
+        if (/^\d+\./.test(trimmed)) {
+        return `<div class="heading">${line}</div>`;
+        }
+
+        // 나머지 줄 → detail 스타일
+        return `<div class="detail">${line}</div>`;
+    }).join("");
+}
+
 
         async function sendToAPI() {
         const question = document.getElementById("question").value;
