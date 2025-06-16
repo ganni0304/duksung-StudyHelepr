@@ -78,25 +78,7 @@
         }).join("");
     }
 
-    if (req.method === "OPTIONS") {
-        return res.status(200).end();
-    }
-
-    const { question, difficulty, understandingLevel } = req.body;
-
-    if(!question || !difficulty || !understandingLevel){
-        return res.status(400).json({error:"question과 difficulty와 understandingLevel이 필요합니다."});
-    }
-
-
-
-
-
-
-
-
-
-        async function sendToAPI() {
+    async function sendToAPI() {
         const question = document.getElementById("question").value;
         const difficulty = document.getElementById("difficulty").value;
         const understandingLevel = document.getElementById("understandingLevel").value;
@@ -126,7 +108,7 @@
         } catch (err) {
             resultBox.innerHTML = `<div class="heading">❌ 요청 실패</div><div class="detail">${err.message}</div>`;
         }
-        }
+    }
     </script>
 </body>
 </html>
